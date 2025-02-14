@@ -1,8 +1,8 @@
-#pragma once
+п»ї#pragma once
 
 #define _USE_MATH_DEFINES
 
-// Файл для хранения классов числовых полей в которых можно решать наше уравнение
+// Р¤Р°Р№Р» РґР»СЏ С…СЂР°РЅРµРЅРёСЏ РєР»Р°СЃСЃРѕРІ С‡РёСЃР»РѕРІС‹С… РїРѕР»РµР№ РІ РєРѕС‚РѕСЂС‹С… РјРѕР¶РЅРѕ СЂРµС€Р°С‚СЊ РЅР°С€Рµ СѓСЂР°РІРЅРµРЅРёРµ
 
 #include <iostream>
 #include <cmath>
@@ -11,39 +11,39 @@
 using namespace std;
 
 
-class Complex { // Класс комплексного числа
+class Complex { // РљР»Р°СЃСЃ РєРѕРјРїР»РµРєСЃРЅРѕРіРѕ С‡РёСЃР»Р°
 protected:
-    double real;       // Вещественная часть
-    double imaginary;  // Мнимая часть
+    double real;       // Р’РµС‰РµСЃС‚РІРµРЅРЅР°СЏ С‡Р°СЃС‚СЊ
+    double imaginary;  // РњРЅРёРјР°СЏ С‡Р°СЃС‚СЊ
 
 public:
     Complex(double real = 0.0, double imaginary = 0.0) : real(real), imaginary(imaginary) {}
 
-    // Геттеры
+    // Р“РµС‚С‚РµСЂС‹
     double getReal() const { return real; }
     double getImaginary() const { return imaginary; }
 
-    // Сеттеры
+    // РЎРµС‚С‚РµСЂС‹
     void setReal(const double real) { this->real = real; }
     virtual void setImaginary(const double imaginary) { this->imaginary = imaginary; }
 
 
-    // Перегрузка оператора +
+    // РџРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂР° +
     Complex operator+(const Complex& other) const {
         return Complex(real + other.real, imaginary + other.imaginary);
     }
 
-    // Перегрузка оператора -
+    // РџРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂР° -
     Complex operator-(const Complex& other) const {
         return Complex(real - other.real, imaginary - other.imaginary);
     }
 
-    // Перегрузка оператора - (унарного)
+    // РџРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂР° - (СѓРЅР°СЂРЅРѕРіРѕ)
     Complex operator-() const {
         return Complex(-real, -imaginary);
     }
 
-    // Перегрузка оператора *
+    // РџРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂР° *
     Complex operator*(const Complex& other) const {
         double newReal = real * other.real - imaginary * other.imaginary;
         double newImaginary = real * other.imaginary + imaginary * other.real;
@@ -51,7 +51,7 @@ public:
         return Complex(newReal, newImaginary);
     }
 
-    // Перегрузка оператора /
+    // РџРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂР° /
     Complex operator/(const Complex& other) const {
         double denominator = other.real * other.real + other.imaginary * other.imaginary;
         double newReal = (real * other.real + imaginary * other.imaginary) / denominator;
@@ -60,7 +60,7 @@ public:
         return Complex(newReal, newImaginary);
     }
 
-    // Перегрузка оператора +=
+    // РџРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂР° +=
     Complex& operator+=(const Complex& other) {
         real += other.real;
         imaginary += other.imaginary;
@@ -68,27 +68,27 @@ public:
         return *this;
     }
 
-    // Перегрузка оператора ==
+    // РџРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂР° ==
     bool operator==(const Complex& other) {
         return (real == other.real && imaginary == other.imaginary);
     }
 
-    // Перегрузка оператора !
+    // РџРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂР° !
     bool operator!() const {
         return (fabs(magnitude()) < 1e-14);
     }
 
-    // Получение модуля комплексного числа
+    // РџРѕР»СѓС‡РµРЅРёРµ РјРѕРґСѓР»СЏ РєРѕРјРїР»РµРєСЃРЅРѕРіРѕ С‡РёСЃР»Р°
     double magnitude() const {
         return std::sqrt(real * real + imaginary * imaginary);
     }
 
-    // Получание агрумента комплексного числа
+    // РџРѕР»СѓС‡Р°РЅРёРµ Р°РіСЂСѓРјРµРЅС‚Р° РєРѕРјРїР»РµРєСЃРЅРѕРіРѕ С‡РёСЃР»Р°
     double argument() const {
         return atan2(imaginary, real);
     }
 
-    // Получение n-ого корня комплексного числа
+    // РџРѕР»СѓС‡РµРЅРёРµ n-РѕРіРѕ РєРѕСЂРЅСЏ РєРѕРјРїР»РµРєСЃРЅРѕРіРѕ С‡РёСЃР»Р°
     virtual vector<Complex> sqrt(const int n = 2) {
         double r = pow(this->magnitude(), 1.0 / n);;
         double f = this->argument();
@@ -101,7 +101,7 @@ public:
         return answer;
     }
 
-    // Перегрузка опрератора <<
+    // РџРµСЂРµРіСЂСѓР·РєР° РѕРїСЂРµСЂР°С‚РѕСЂР° <<
     friend ostream& operator<<(ostream& os, const Complex& complex) {
         os << "(" << complex.real;
         if (complex.imaginary >= 0) {
@@ -113,7 +113,7 @@ public:
         return os;
     }
 
-    // Перегрузка оператора >>
+    // РџРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂР° >>
     friend istream& operator>>(istream& is, Complex& complex) {
         is >> complex.real >> complex.imaginary;
 
@@ -125,29 +125,29 @@ public:
 
 
 
-class Real : public Complex { // Класс вещественного числа
+class Real : public Complex { // РљР»Р°СЃСЃ РІРµС‰РµСЃС‚РІРµРЅРЅРѕРіРѕ С‡РёСЃР»Р°
 public:
     Real(double real = 0.0) : Complex(real, 0.0) {}
     Real(Complex c) : Real(c.getReal()) {}
 
-    // Переопределение метода для установки мнимой части 
+    // РџРµСЂРµРѕРїСЂРµРґРµР»РµРЅРёРµ РјРµС‚РѕРґР° РґР»СЏ СѓСЃС‚Р°РЅРѕРІРєРё РјРЅРёРјРѕР№ С‡Р°СЃС‚Рё 
     void setImaginary(double imaginary) override {}
 
-    // Перегрузка оператора <<
+    // РџРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂР° <<
     friend ostream& operator<<(ostream& os, const Real& real) {
         os << real.getReal();
 
         return os;
     }
 
-    // Перегрузка оператора >>
+    // РџРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂР° >>
     friend istream& operator>>(istream& is, Real& real) {
         is >> real.real;
 
         return is;
     }
 
-    // Получение n-ого корня числа
+    // РџРѕР»СѓС‡РµРЅРёРµ n-РѕРіРѕ РєРѕСЂРЅСЏ С‡РёСЃР»Р°
     vector<Complex> sqrt(const int n = 2) override {
         if (this->getReal() < 0) return vector<Complex>({});
 

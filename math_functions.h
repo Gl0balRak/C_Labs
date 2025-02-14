@@ -1,27 +1,27 @@
-#pragma once
+п»ї#pragma once
 
 #include <iostream>
 #include <cmath>
 #include <vector>
 
 
-template<typename T> class Roots { // Класс для хранения решения уравнения
+template<typename T> class Roots { // РљР»Р°СЃСЃ РґР»СЏ С…СЂР°РЅРµРЅРёСЏ СЂРµС€РµРЅРёСЏ СѓСЂР°РІРЅРµРЅРёСЏ
 private:
-    vector<T> roots; // Список корней
-    bool infinity;   // Флаг бесконечного числа решений
+    vector<T> roots; // РЎРїРёСЃРѕРє РєРѕСЂРЅРµР№
+    bool infinity;   // Р¤Р»Р°Рі Р±РµСЃРєРѕРЅРµС‡РЅРѕРіРѕ С‡РёСЃР»Р° СЂРµС€РµРЅРёР№
 
 public:
     Roots() : roots(), infinity(false) {}
 
 
-    // Геттеры
+    // Р“РµС‚С‚РµСЂС‹
     bool inf() { return infinity; }
 
     int size() {
         return roots.size();
     }
 
-    // Сеттеры
+    // РЎРµС‚С‚РµСЂС‹
     void set_inf(const bool infinity) { this->infinity = infinity; };
 
     void add_root(T root) {
@@ -35,25 +35,25 @@ public:
 };
 
 
-template<typename T> class Function {  // Абстрактный класс математической функции
+template<typename T> class Function {  // РђР±СЃС‚СЂР°РєС‚РЅС‹Р№ РєР»Р°СЃСЃ РјР°С‚РµРјР°С‚РёС‡РµСЃРєРѕР№ С„СѓРЅРєС†РёРё
 public:
     virtual Roots<T> roots() { return Roots<T>({}); };
     virtual T operator() (T x) { return T(0); };
 };
 
-template<typename T> class Polynom : public Function<T> { // Класс полинома
+template<typename T> class Polynom : public Function<T> { // РљР»Р°СЃСЃ РїРѕР»РёРЅРѕРјР°
 protected:
-    vector<T> coefficients; // Список коэфицентов
+    vector<T> coefficients; // РЎРїРёСЃРѕРє РєРѕСЌС„РёС†РµРЅС‚РѕРІ
 
 public:
     Polynom(vector<T> coefficients) : Function<T>(), coefficients(coefficients) {}
 
-    // Перегружаем оператор индексации
+    // РџРµСЂРµРіСЂСѓР¶Р°РµРј РѕРїРµСЂР°С‚РѕСЂ РёРЅРґРµРєСЃР°С†РёРё
     T& operator[] (int index) {
         return coefficients[index];
     }
 
-    // Перегруужаем оператор ()
+    // РџРµСЂРµРіСЂСѓСѓР¶Р°РµРј РѕРїРµСЂР°С‚РѕСЂ ()
     T operator() (T x) override {
         T result(0);
         for (T& const coef : coefficients)
@@ -62,7 +62,7 @@ public:
         return result;
     }
 
-    // Перегружаем оператор <<
+    // РџРµСЂРµРіСЂСѓР¶Р°РµРј РѕРїРµСЂР°С‚РѕСЂ <<
     friend ostream& operator<<(ostream& os, const Polynom& poly) {
         int size = poly.coefficients.size();
         os << poly.coefficients[size - 1];
@@ -74,11 +74,11 @@ public:
 };
 
 
-template<typename T> class Polynom2 : public Polynom <T> {  // Класс квадратичной функции
+template<typename T> class Polynom2 : public Polynom <T> {  // РљР»Р°СЃСЃ РєРІР°РґСЂР°С‚РёС‡РЅРѕР№ С„СѓРЅРєС†РёРё
 public:
     Polynom2(vector<T> coefficients) : Polynom<T>(vector<T>(coefficients.begin(), coefficients.begin() + 3)) {}
 
-    // Функция для поиска корней квадратного уравнения
+    // Р¤СѓРЅРєС†РёСЏ РґР»СЏ РїРѕРёСЃРєР° РєРѕСЂРЅРµР№ РєРІР°РґСЂР°С‚РЅРѕРіРѕ СѓСЂР°РІРЅРµРЅРёСЏ
     Roots<T> roots() override {
         Roots<T> _roots;
 
