@@ -119,6 +119,8 @@ public:
 
         return is;
     }
+
+    virtual ~Complex() {};
 };
 
 
@@ -158,4 +160,6 @@ public:
 
         return answer;
     }
+
+    ~Real() {};
 };
